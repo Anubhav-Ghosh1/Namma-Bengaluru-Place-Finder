@@ -155,6 +155,23 @@ export default function Home() {
         />
       )}
 
+      {/* ── Mobile Places Bottom Sheet ── */}
+      {mobileListOpen && (
+        <MobilePlaceSheet
+          places={places}
+          selectedPlace={selectedPlace}
+          onSelectPlace={handleSelectPlace}
+          onClose={() => setMobileListOpen(false)}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          onVoteUpdate={loadPlaces}
+        />
+      )}
+
       {/* ── Main Layout ── */}
       <div className="flex flex-1 overflow-hidden relative">
         {/* Sidebar */}
@@ -177,23 +194,6 @@ export default function Home() {
           onAddPlace={handleAddPlace}
           onVoteUpdate={loadPlaces}
         />
-
-          {/* Mobile Places Bottom Sheet */}
-          {mobileListOpen && (
-            <MobilePlaceSheet
-              places={places}
-              selectedPlace={selectedPlace}
-              onSelectPlace={handleSelectPlace}
-              onClose={() => setMobileListOpen(false)}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              onVoteUpdate={loadPlaces}
-            />
-          )}
 
         {/* Map */}
         <div className="flex-1 relative">
