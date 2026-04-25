@@ -16,6 +16,7 @@ interface MobilePlaceSheetProps {
   setActiveCategory: (c: string) => void;
   sortBy: string;
   setSortBy: (s: string) => void;
+  onVoteUpdate: () => void;
 }
 
 export default function MobilePlaceSheet({
@@ -29,6 +30,7 @@ export default function MobilePlaceSheet({
   setActiveCategory,
   sortBy,
   setSortBy,
+  onVoteUpdate,
 }: MobilePlaceSheetProps) {
   const [voting, setVoting] = useState<string | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -40,6 +42,7 @@ export default function MobilePlaceSheet({
     setVoting(placeId);
     try {
       await votePlace(placeId, userId, vote);
+      onVoteUpdate();
     } catch (err) {
       console.error(err);
     }
@@ -51,10 +54,10 @@ export default function MobilePlaceSheet({
     p.votedBy?.find((v) => v.userId === userId)?.vote || null;
 
   return (
-    <div className="fixed inset-0 z-[300] md:hidden" onClick={onClose}>
+    <div className="fixed inset-0 z-[9999] md:hidden bg-black/50" onClick={onClose}>
       <div
         ref={sheetRef}
-        className="absolute bottom-0 left-0 right-0 bg-deep rounded-t-3xl border-t border-white/10 flex flex-col max-h-[85vh] animate-slide-up"
+        className="absolute bottom-0 left-0 right-0 bg-[#0f172a] rounded-t-3xl border-t border-white/10 flex flex-col max-h-[85vh] animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle + header */}

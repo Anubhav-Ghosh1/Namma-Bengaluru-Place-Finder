@@ -191,6 +191,7 @@ export default function Home() {
               setActiveCategory={setActiveCategory}
               sortBy={sortBy}
               setSortBy={setSortBy}
+              onVoteUpdate={loadPlaces}
             />
           )}
 
