@@ -45,6 +45,20 @@ body {
   color: #8b5cf6 !important;
 }
 
+/* Mobile touch fixes for Leaflet markers */
+.leaflet-interactive {
+  touch-action: none;
+}
+.leaflet-marker-icon {
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.leaflet-touch .leaflet-bar a {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+
 /* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
@@ -88,10 +102,10 @@ body {
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-  .sidebar-desktop { display: none; }
+  .sidebar-desktop { display: none !important; }
   .sidebar-mobile-toggle { display: flex !important; }
-  .sidebar-mobile.open { display: flex !important; }
 }
 @media (min-width: 769px) {
+  .sidebar-desktop { display: flex !important; }
   .sidebar-mobile-toggle { display: none !important; }
 }

@@ -7,6 +7,7 @@ import { fetchPlaces, createPlace, getUserId } from "@/lib/api";
 import Sidebar from "@/components/Sidebar";
 import PlaceDetail from "@/components/PlaceDetail";
 import AdminPanel from "@/components/AdminPanel";
+import MobilePlaceSheet from "@/components/MobilePlaceSheet";
 
 // Leaflet must be loaded client-side only
 const MapView = dynamic(() => import("@/components/MapView"), {
@@ -176,6 +177,22 @@ export default function Home() {
           onAddPlace={handleAddPlace}
           onVoteUpdate={loadPlaces}
         />
+
+          {/* Mobile Places Bottom Sheet */}
+          {mobileListOpen && (
+            <MobilePlaceSheet
+              places={places}
+              selectedPlace={selectedPlace}
+              onSelectPlace={handleSelectPlace}
+              onClose={() => setMobileListOpen(false)}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+          )}
 
         {/* Map */}
         <div className="flex-1 relative">

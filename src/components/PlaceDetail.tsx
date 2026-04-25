@@ -99,7 +99,7 @@ export default function PlaceDetail({
   };
 
   return (
-    <div className="animate-slide-up absolute bottom-4 left-4 right-4 max-h-[55%] overflow-y-auto custom-scrollbar bg-deep/95 backdrop-blur-xl rounded-2xl border border-white/10 p-5 z-10 shadow-2xl">
+    <div className="animate-slide-up absolute bottom-4 left-4 right-4 max-h-[55%] overflow-y-auto custom-scrollbar bg-deep/95 backdrop-blur-xl rounded-2xl border border-white/10 p-5 z-[1000] shadow-2xl">
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>

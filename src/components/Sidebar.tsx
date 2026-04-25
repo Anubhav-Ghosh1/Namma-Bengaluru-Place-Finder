@@ -68,6 +68,8 @@ export default function Sidebar({
   return (
     <div className="w-[380px] min-w-[380px] bg-deep border-r border-white/5 flex flex-col overflow-hidden z-50 sidebar-desktop">
       {/* Search */}
+
+      {/* Search */}
       <div className="p-3 border-b border-white/5">
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 text-sm">

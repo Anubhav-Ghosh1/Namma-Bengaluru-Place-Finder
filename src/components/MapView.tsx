@@ -25,6 +25,7 @@ export default function MapView({
   const mapInstance = useRef<L.Map | null>(null);
   const markersRef = useRef<L.Marker[]>([]);
   const clickMarkerRef = useRef<L.Marker | null>(null);
+  const previousSelectedRef = useRef<string | null>(null);
 
   // Initialize map
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function MapView({
 
     const map = L.map(mapRef.current, {
       zoomControl: false,
+      closePopupOnClick: false,
     }).setView(BANGALORE_CENTER, 12);
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
@@ -66,7 +68,7 @@ export default function MapView({
           iconSize: [36, 36],
           iconAnchor: [18, 18],
         });
-        clickMarkerRef.current = L.marker(e.latlng, { icon }).addTo(map);
+        clickMarkerRef.current = L.marker(e.latlng, { icon, interactive: false }).addTo(map);
       }
     };
 
@@ -110,8 +112,12 @@ export default function MapView({
         iconAnchor: [size / 2, size / 2],
       });
 
-      const marker = L.marker([p.lat, p.lng], { icon }).addTo(map);
+      const marker = L.marker([p.lat, p.lng], { icon, interactive: true }).addTo(map);
       marker.on("click", () => onSelectPlace(p));
+      marker.on("touchstart", (e: L.LeafletEvent & { originalEvent?: Event }) => {
+        if (e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
+        onSelectPlace(p);
+      });
       markersRef.current.push(marker);
     });
   }, [places, selectedPlace, onSelectPlace]);
@@ -122,11 +128,13 @@ export default function MapView({
 
   // Fly to selected
   useEffect(() => {
-    if (selectedPlace && mapInstance.current) {
-      mapInstance.current.flyTo([selectedPlace.lat, selectedPlace.lng], 15, {
-        duration: 0.8,
-      });
-    }
+    if (!selectedPlace || !mapInstance.current) return;
+    const prev = previousSelectedRef.current;
+    if (prev === selectedPlace._id) return; // don't re-fly on same selection
+    previousSelectedRef.current = selectedPlace._id;
+    mapInstance.current.flyTo([selectedPlace.lat, selectedPlace.lng], 15, {
+      duration: 0.8,
+    });
   }, [selectedPlace]);
 
   return (
